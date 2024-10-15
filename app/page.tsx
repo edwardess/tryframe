@@ -33,22 +33,17 @@ export default function Home() {
     });
   }, []);
 
- useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-    });
-
-    // Scroll event handler
+  // Sync the iframe's scroll position with the parent window
+  useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      window.parent.postMessage({ scrollTop: scrollTop }, 'https://edwardecreatives.systeme.io/a9324ca9?preview=c831b8eb17190dd35679f5bdd1d2068b'); // Update with the actual parent URL
+      window.parent.postMessage({ scrollTop: scrollTop }, '*'); // Communicate scroll position to parent
     };
 
     // Add the scroll event listener
     window.addEventListener('scroll', handleScroll);
 
-    // Cleanup by removing the scroll event listener when the component is unmounted
+    // Cleanup scroll event listener
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -57,7 +52,6 @@ export default function Home() {
   return (
     <>
       <PreLoader />
-
       <NavBar />
 
       {/* <ScrollerMotion> */}
@@ -65,7 +59,7 @@ export default function Home() {
         <Hero />
         <Work />
         <Soc />
-        <Reviews/>
+        <Reviews />
         <About />
         <Blog />
         <Contact />
