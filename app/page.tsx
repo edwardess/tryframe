@@ -33,25 +33,29 @@ export default function Home() {
     });
   }, []);
 
-  // Sync the iframe's scroll position with the parent window
+  // Send iframe height to parent window for dynamic resizing
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      window.parent.postMessage({ scrollTop: scrollTop }, '*'); // Communicate scroll position to parent
+    const sendHeight = () => {
+      const height = document.documentElement.scrollHeight; // Get the document height
+      window.parent.postMessage({ iframeHeight: height }, '*'); // Send height to parent window
     };
 
-    // Add the scroll event listener
-    window.addEventListener('scroll', handleScroll);
+    // Send height when the component is mounted and after resizing
+    sendHeight();
 
-    // Cleanup scroll event listener
+    // Listen for any window resize event to update iframe height dynamically
+    window.addEventListener('resize', sendHeight);
+
+    // Cleanup the event listener when the component is unmounted
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', sendHeight);
     };
   }, []);
 
   return (
     <>
       <PreLoader />
+
       <NavBar />
 
       {/* <ScrollerMotion> */}
