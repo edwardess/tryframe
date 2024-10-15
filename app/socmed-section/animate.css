@@ -1,0 +1,13 @@
+@keyframes scrollCarousel {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-carousel {
+    animation: scrollCarousel 60s linear infinite;
+  }
+  

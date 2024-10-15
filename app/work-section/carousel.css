@@ -1,0 +1,13 @@
+.slick-slide {
+    display: flex;
+    justify-content: center; /* Center each slide */
+  }
+  
+  .slick-list {
+    padding: 0 20px; /* Add some padding to the sides */
+  }
+  
+  .slick-prev, .slick-next {
+    z-index: 1; /* Bring navigation buttons above cards */
+  }
+  
